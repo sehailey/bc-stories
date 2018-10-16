@@ -20,16 +20,6 @@ app.get('*', (req, res) => {
 
 app.use('/api', require('./api'))
 
-app.get('/hello', (req, res, next) => {
-  try {
-    const data = { data: 'Hello from Express!' }
-    res.send(data)
-  } catch (e) {
-    console.log(e)
-    next(e)
-  }
-})
-
 // sends index.html
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public/index.html'))
