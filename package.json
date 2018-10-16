@@ -2,7 +2,7 @@
   "name": "bc-stories",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bc-stories.herokuapp.com/",
+  "homepage": "https://bc-stories.herokuapp.com",
   "proxy": "http://localhost:1337",
   "dependencies": {
     "axios": "^0.18.0",
