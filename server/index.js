@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(require('body-parser').text())
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(__dirname, 'public'))
+  app.use(express.static(__dirname, 'build'))
 }
 
 app.use('/api', require('./api'))
