@@ -1,48 +1,36 @@
 const router = require('express').Router()
-const {Story} = require('../db/models')
+const { Story } = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
-    try {
-        const stories = await Story.findAll()
-        res.json(stories)
-    } catch (err) {
-        next(err)
-    }
-})
-
 router.post('/', async (req, res, next) => {
-    try {
-        const story = await Story.create(req.body)
+  try {
+    const story = await Story.create(req.body)
 
-        res.status(201).json(story)
-    } catch (err) {
-        next(err)
-    }
+    res.status(201).json(story)
+  } catch (err) {
+    next(err)
+  }
 })
 
-router.post('/retrieve', async (req, res, next) => {
-    try {
-        const {hash} = req.body
+router.post('/read', async (req, res, next) => {
+  console.log(req.body)
+  try {
+    const { hash } = req.body
 
-        const story = await Story.find({
-            where: {
-                hash: hash,
-            },
-            attributes: [
-                'firstName',
-                'lastName',
-                'dateOfEvent',
-                'eventDetails',
-            ],
-        })
-        console.log(story.firstName)
-        if (story) {
-            res.send(story)
-        } else {
-            res.status(404)
-        }
-    } catch (err) {
-        next(err)
+    const story = await Story.find({
+      where: {
+        hash: hash
+      },
+      attributes: ['firstName', 'lastName', 'dateOfEvent', 'eventDetails']
+    })
+
+    if (story) {
+      res.status(200).send(story)
+    } else {
+      console.log('wtf')
+      res.status(404)
     }
+  } catch (err) {
+    next(err)
+  }
 })

@@ -10,17 +10,22 @@ app.use(volleyball)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(require('body-parser').text())
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(__dirname, '/build'))
-}
-console.log(process.env.NODE_ENV)
 app.use('/api', require('./api'))
 
-// sends index.html
-app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'))
-})
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up production assets
+  app.use(express.static('build'))
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve('../client/build', 'index.html'))
+  )
+}
+
+if (process.env.NODE_ENV === 'dev') {
+  app.use(express.static('../client/public'))
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve('../client/public', 'index.html'))
+  )
+}
 
 // error handling endware
 app.use((err, req, res, next) => {
