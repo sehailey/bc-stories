@@ -27,8 +27,8 @@ router.post('/read', async (req, res, next) => {
     if (story) {
       res.status(200).send(story)
     } else {
-      console.log('wtf')
-      res.status(404)
+      console.log('no story found.')
+      res.status(204).send()
     }
   } catch (err) {
     next(err)

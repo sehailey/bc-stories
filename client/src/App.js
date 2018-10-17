@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Navbar, Footer } from "./components";
-import Routes from "./routes";
+import React, { Component } from 'react'
+import { Navbar, Footer } from './components'
+import Routes from './routes'
 
 class App extends Component {
   render() {
@@ -10,8 +10,8 @@ class App extends Component {
         <Routes />
         <Footer />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
