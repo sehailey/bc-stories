@@ -1,10 +1,10 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const volleyball = require('volleyball')
+const morgan = require('morgan')
 const port = process.env.PORT || 1337
 
-app.use(volleyball)
+app.use(morgan('tiny'))
 
 // body parsing middleware
 app.use(express.json())
@@ -14,15 +14,8 @@ app.use('/api', require('./api'))
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
-  app.use(express.static('build'))
-  app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
-}
-
-if (process.env.NODE_ENV === 'dev') {
-  app.use(express.static('../client/public'))
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve('../client/public', 'index.html'))
-  )
+  app.use(express.static('/build'))
+  app.get('*', (req, res) => res.sendFile(path.resolve('/build', 'index.html')))
 }
 
 // error handling endware
